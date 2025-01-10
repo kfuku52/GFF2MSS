@@ -353,7 +353,10 @@ def mRNA_MAKE_NP(gff_df_col, RNA_f, locus_tag_prefix, locus_tag_counter, anno_DF
         spliced_cds = ""
         for exon in subfeatures.itertuples():
             exon_seq = record.seq[exon.start-1 : exon.end]  # Biopython slice is 0-based
-            spliced_cds += str(exon_seq)
+            if strand == '+':
+                spliced_cds += str(exon_seq)
+            else:
+                spliced_cds = str(exon_seq) + spliced_cds
         if strand == '-':
             spliced_cds = str(Seq(spliced_cds).reverse_complement())
         start_codon_seq = spliced_cds[:3]
