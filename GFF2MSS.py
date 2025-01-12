@@ -561,6 +561,7 @@ if __name__ == '__main__':
     
     gff_df = gffpd.read_gff3(in_file)
     gff_df_col = gff_df.attributes_to_columns()
+    gff_df_col['seq_id'] = gff_df_col['seq_id'].astype(str)
     gff_df_col = gff_df_col.sort_values('start')
     with open(out_path, mode='w') as f:
         f.write(OUT_CHA)
